@@ -56,11 +56,11 @@ export class User {
   wishes: Wish[];
 
   // offers — содержит список подарков, на которые скидывается пользователь. Установите для него подходящий тип связи.
-  @OneToMany(() => Offer, (offer) => offer) // TODO добавить поле
+  @OneToMany(() => Offer, (offer) => offer.user)
   offers: Offer[];
 
   // wishlists содержит список вишлистов, которые создал пользователь. Установите для него подходящий тип связи.
-  @OneToMany(() => Wishlist, (Wishlist) => Wishlist) // TODO добавить поле
+  @OneToMany(() => Wishlist, (wishlist) => wishlist.owner)
   wishList: Wishlist[];
 }
 

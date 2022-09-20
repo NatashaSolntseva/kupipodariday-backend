@@ -48,7 +48,7 @@ export class Wish {
   raised: number;
 
   // owner — ссылка на пользователя, который добавил пожелание подарка.
-  @ManyToOne(() => User, (owner) => owner.wishes)
+  @ManyToOne(() => User, (user) => user.id)
   owner: User;
 
   // description — строка с описанием подарка длиной от 1 и до 1024 символов.
@@ -57,8 +57,8 @@ export class Wish {
   description: string;
 
   // offers — массив ссылок на заявки скинуться от других пользователей.
-  @OneToMany(() => Offer, (offer) => offer) // TODO тип - массив заявок
-  offers: string;
+  @OneToMany(() => Offer, (offer) => offer.item)
+  offers: Offer[];
 
   // copied — содержит cчётчик тех, кто скопировал подарок себе. Целое десятичное число.
   @Column({
