@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional } from "class-validator";
+import { IsNotEmpty, IsOptional } from 'class-validator';
 
 export class CreateOfferDto {
   @IsNotEmpty()
@@ -6,5 +6,4 @@ export class CreateOfferDto {
 
   @IsOptional()
   hidden: boolean;
-
 }
