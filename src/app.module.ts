@@ -9,6 +9,13 @@ import { User } from './users/entities/user.entity';
 import { Wish } from './wishes/entities/wish.entity';
 import { Wishlist } from './wishlists/entities/wishlist.entity';
 import { Offer } from './offers/entities/offer.entity';
+import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
+import configuration from './config/config';
+import { EmailModule } from './email-sender/email-sender.module';
+import dotenv = require('dotenv');
+
+dotenv.config();
 
 @Module({
   imports: [
@@ -26,6 +33,7 @@ import { Offer } from './offers/entities/offer.entity';
     WishesModule,
     WishlistsModule,
     OffersModule,
+    AuthModule,   
   ],
   controllers: [AppController],
   providers: [],
@@ -41,3 +49,10 @@ export class AppModule {}
 // в теме про миграции.
 /* entities — сущности, которые описывают нашу базу данных. Пока их нет, мы ничего не можем делать с базой, добавим их в следующем уроке.
 .*/
+
+/*
+    ConfigModule.forRoot({
+      load: [configuration]      
+    }),
+
+*/

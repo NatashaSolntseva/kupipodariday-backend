@@ -14,11 +14,13 @@ export class AuthController {
   @UseGuards(LocalGuard)
   @Post('signin')
   signin(@Req() req): { access_token: string } {
+    /* Генерируем для пользователя JWT токен */    
     return this.authService.auth(req.user);
   }
 
   @Post('signup')
   async signup(@Body() createUserDto: CreateUserDto) {
+    /* При регистрации, создаём пользователя и генерируем для него токен */
     const user = await this.userService.create(createUserDto);
     return this.authService.auth(user);
   }
