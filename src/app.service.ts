@@ -8,8 +8,7 @@ export class AppService {
     this.logger = new Logger(AppService.name);
   }
 
-  getStarted(): string {
-    console.log('TEST')
+  getStarted(): string {    
     this.logger.debug('test');
     return 'Server started!';
   }

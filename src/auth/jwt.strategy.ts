@@ -9,8 +9,7 @@ import { User } from 'src/users/entities/user.entity';
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
-    private configService: ConfigService,
-    @InjectRepository(User)
+    private configService: ConfigService,    
     private userService: UsersService,
   ) {
     super({
@@ -27,6 +26,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
    */
 
   async validate(jwtPayload: { sub: number }) {
+    console.log('sub number', jwtPayload.sub);
     /* В subject токена будем передавать идентификатор пользователя */
     const user = await this.userService.findOne(jwtPayload.sub);
     console.log('user in jwt strategy', user);

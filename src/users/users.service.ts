@@ -7,6 +7,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { hashPassword } from 'src/utils/hash';
+import { FindUserDto } from './dto/find-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -26,19 +27,28 @@ export class UsersService {
   }
 
   async findOne(id: number): Promise<User> {
-    console.log('id in find one', id);
-    return this.userRepository.findOneBy({ id: id });
-  }
+    //console.log('id in find one', id);
+    return this.userRepository.findOneBy({ id });
+  } //TODO не возвращать пароль в виде хэша
 
   async findByUserName(username: string): Promise<User> {
     return this.userRepository.findOneBy({username})
   }
 
+  async findMany({ query }: FindUserDto): Promise<User[]> {
+    console.log('', { query });
+    const users = await this.userRepository.find({where: [{email: query}, {username: query}]})
+    return users;
+  }
+
   async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
+    //console.log('id in update service', id);
+    //console.log('data in update service', updateUserDto);
     await this.userRepository.update(id, updateUserDto);
     return this.findOne(id);
   }
 
+ //public
   async updateUserData(id: number, updateUserDto: UpdateUserDto) {
     
     const { password } = updateUserDto;    
