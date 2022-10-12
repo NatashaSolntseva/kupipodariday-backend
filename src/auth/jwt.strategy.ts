@@ -26,10 +26,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
    */
 
   async validate(jwtPayload: { sub: number }) {
-    console.log('sub number', jwtPayload.sub);
+   //console.log('sub number', jwtPayload.sub);
     /* В subject токена будем передавать идентификатор пользователя */
     const user = await this.userService.findOne(jwtPayload.sub);
-    console.log('user in jwt strategy', user);
+    //console.log('user in jwt strategy', user);
     if (!user) {
       throw new UnauthorizedException();
     }

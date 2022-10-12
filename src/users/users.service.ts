@@ -1,6 +1,4 @@
-import * as bcrypt from 'bcrypt';
-
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -32,11 +30,17 @@ export class UsersService {
   } //TODO не возвращать пароль в виде хэша
 
   async findByUserName(username: string): Promise<User> {
-    return this.userRepository.findOneBy({username})
-  }
+    //console.log('Username', username);
+    const user = await this.userRepository.findOneBy({username});
+    //console.log('user info', user);
+    /*if (!user) {
+      return new NotFoundException();
+    }*/
+    return user;
+  } 
 
   async findMany({ query }: FindUserDto): Promise<User[]> {
-    console.log('', { query });
+    //console.log('', { query });
     const users = await this.userRepository.find({where: [{email: query}, {username: query}]})
     return users;
   }
@@ -56,6 +60,16 @@ export class UsersService {
       return this.userRepository.update(id, {...updateUserDto, password: await hashPassword(password),
       });
     } else return this.userRepository.update(id, updateUserDto)
+  }
+
+  async getUserWishes(username: string) {
+    const user = await this.userRepository.findOne({
+      where: {username: username},
+      select: ['wishes'],
+      relations: ['wishes']
+    })
+    //console.log('Wishes in userwishes', user.wishes);
+    return user.wishes;
   }
 
   async remove(id: number) {

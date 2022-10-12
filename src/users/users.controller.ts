@@ -53,23 +53,25 @@ export class UsersController {
 
   @UseGuards(JwtGuard)
   @Get('me/wishes')
-  async getCurrentUserWishes() {
-    const user = [];
-    return console.log('me/wishes');
+  async getCurrentUserWishes(@Req() req) {
+    const user = await this.usersService.findOne(req.user.id);
+    //console.log('user in MeWishes', user);
+    const userWishes = await this.usersService.getUserWishes(user.username);
+    //console.log('userWishes in MeWishes', userWishes);
+    return userWishes;
   }
 
+  // Find user by Username
   @UseGuards(JwtGuard)
   @Get(':username')
-  async findOne() {
-    const user = [];
-    console.log('username');
+  findOne(@Param('username') username: string) {
+    return this.usersService.findByUserName(username);
   }
 
   @UseGuards(JwtGuard)
   @Get(':username/wishes')
-  async getUsersWishes() {
-    const user = [];
-    console.log('username/wishes');
+  getUsersWishes(@Param('username') username: string) {
+    return this.usersService.getUserWishes(username);    
   }
 
   @UseGuards(JwtGuard)
