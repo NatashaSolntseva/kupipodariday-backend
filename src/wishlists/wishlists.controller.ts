@@ -6,7 +6,7 @@ import { JwtGuard } from 'src/auth/jwt.guard';
 
 //only for registered users
 @UseGuards(JwtGuard)
-@Controller('wishlists')
+@Controller('wishlistlists')
 export class WishlistsController {
   constructor(private readonly wishlistsService: WishlistsService) {}
 

@@ -2,7 +2,7 @@ import { IsArray, IsNumber, IsOptional, IsString, IsUrl, Length } from "class-va
 
 export class CreateWishlistDto {
   // name — название списка. Не может быть длиннее 250 символов и короче одного;
-  @IsString()
+  @IsString()  
   @IsOptional()
   @Length(1, 250)
   name: string;

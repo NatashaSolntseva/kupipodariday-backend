@@ -21,10 +21,12 @@ import { FindUserDto } from './dto/find-user.dto';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  // for signup
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
+
 
   @Get()
   findAll() {
@@ -32,7 +34,7 @@ export class UsersController {
   }
 
   // Get Current User
- @UseGuards(JwtGuard)
+  @UseGuards(JwtGuard)
   @Get('me')
   findCurrentUser(@Req() req):Promise<User> {
     //console.log('req.user', req.user); 
@@ -47,6 +49,27 @@ export class UsersController {
     //console.log('DATA in update controller', updateUserDto);
     const updatedUser= await this.usersService.updateUserData(req.user.id, updateUserDto);
     return this.usersService.findOne(req.user.id);
+  }
+
+  @UseGuards(JwtGuard)
+  @Get('me/wishes')
+  async getCurrentUserWishes() {
+    const user = [];
+    return console.log('me/wishes');
+  }
+
+  @UseGuards(JwtGuard)
+  @Get(':username')
+  async findOne() {
+    const user = [];
+    console.log('username');
+  }
+
+  @UseGuards(JwtGuard)
+  @Get(':username/wishes')
+  async getUsersWishes() {
+    const user = [];
+    console.log('username/wishes');
   }
 
   @UseGuards(JwtGuard)

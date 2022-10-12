@@ -49,11 +49,11 @@ export class WishesService {
   }
 
   async findLastWishes(): Promise<Wish[]> {
-    return this.wishesRepository.find({ take: 40, order: { createdAt: 'DESC'}});
+    return this.wishesRepository.find({ order: { createdAt: 'DESC'}});
   }
 
   async findTopWishes(): Promise<Wish[]> {
-    return this.wishesRepository.find({ take: 20, order: { copied: 'DESC'}})
+    return this.wishesRepository.find({ order: { copied: 'DESC'}})
   }
 
   async copyLikedWish(wishId: number, userId: number) {

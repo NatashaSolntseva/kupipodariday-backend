@@ -39,8 +39,9 @@ export class WishesController {
   }
 //find the most popular wishes (20)
   @Get('top')
-  findTopWish() {
-    return console.log('this method returns top wish')
+  async findTopWish() {
+    const topWishes = await this.wishesService.findLastWishes();
+    return topWishes;
   }
 
   @UseGuards(JwtGuard)
