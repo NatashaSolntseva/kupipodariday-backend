@@ -10,8 +10,6 @@ import { Wish } from './wishes/entities/wish.entity';
 import { Wishlist } from './wishlists/entities/wishlist.entity';
 import { Offer } from './offers/entities/offer.entity';
 import { AuthModule } from './auth/auth.module';
-import { ConfigModule } from '@nestjs/config';
-import configuration from './config/config';
 import { EmailModule } from './email-sender/email-sender.module';
 
 import dotenv = require('dotenv');
@@ -50,7 +48,8 @@ dotenv.config();
     WishesModule,
     WishlistsModule,
     OffersModule,
-    AuthModule,   
+    AuthModule,
+    EmailModule   
   ],
   controllers: [AppController],
   providers: [AppService],

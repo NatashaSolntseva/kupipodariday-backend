@@ -72,9 +72,8 @@ export class WishesService {
       owner: currentOwner,
 
     }*/
-
     
-
+    return wish;
   }
   
   async find(options: FindManyOptions<Wish>): Promise<Wish[]> {
