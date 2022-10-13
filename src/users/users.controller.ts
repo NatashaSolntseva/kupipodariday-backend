@@ -43,18 +43,14 @@ export class UsersController {
   // Update User Info
   @Patch('me')
   async update(@Req() req, @Body() updateUserDto: UpdateUserDto): Promise<User> {
-    //console.log('ID in update controller', req.user.id);
-    //console.log('DATA in update controller', updateUserDto);
-    const updatedUser= await this.usersService.updateUserData(req.user.id, updateUserDto);
+    await this.usersService.updateUserData(req.user.id, updateUserDto);
     return this.usersService.findOne(req.user.id);
   }
   
   @Get('me/wishes')
   async getCurrentUserWishes(@Req() req) {
     const user = await this.usersService.findOne(req.user.id);
-    //console.log('user in MeWishes', user);
     const userWishes = await this.usersService.getUserWishes(user.username);
-    //console.log('userWishes in MeWishes', userWishes);
     return userWishes;
   }
 

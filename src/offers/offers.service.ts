@@ -20,10 +20,8 @@ export class OffersService {
   ) {}
 
   async createOne(createOfferDto: CreateOfferDto, user: User) {
-    const currentUser = await this.userService.findOne(user.id);
-    //console.log('currentUser', currentUser);    
+    const currentUser = await this.userService.findOne(user.id); 
     const wish = await this.wishesService.findOne(createOfferDto.itemId);
-    //console.log('wish', wish);
 
     if (currentUser.id === wish.owner.id) {
       throw new BadRequestException('Нельзя вносить деньги на собственные подарки');
@@ -38,11 +36,8 @@ export class OffersService {
     const savedOffer = await this.offersRepository.save(offer);
     const updatedWish = await this.wishesService.findOne(createOfferDto.itemId);
 
-    //TODO email sender
-    if (updatedWish.raised === updatedWish.price) {
-      console.log('updatedWish in E-sender', updatedWish)
+    if (updatedWish.raised === updatedWish.price) { 
       const emails = updatedWish.offers.map((offer) => offer.user.email);
-      console.log('emails', emails);
       await this.emailService.sendEmail(emails, updatedWish);
     }
     return savedOffer;
