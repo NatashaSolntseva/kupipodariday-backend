@@ -1,7 +1,7 @@
 {
   "name": "kupipodariday-backend",
   "version": "0.0.1",
-  "description": "",
+  "description": "Backend for kupipodariday (wishlist app)",
   "author": "Natasha Solntseva",
   "private": true,
   "license": "UNLICENSED",
